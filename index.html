@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Обратный отсчёт до лета</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #87ceeb;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 500px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .timer {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .label {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Обратный отсчёт до лета</h1>
+        <div class="timer" id="timer">00:00:00:00</div>
+        <div class="label">
+            <span>Дни</span>
+            <span>Часы</span>
+            <span>Минуты</span>
+            <span>Секунды</span>
+        </div>
+    </div>
+
+    <script>
+        function updateTimer() {
+            const targetDate = new Date('2026-06-01T00:00:00'); // Лето начинается 1 июня 2026
+            const now = new Date();
+            const difference = targetDate - now;
+
+            if (difference <= 0) {
+                document.getElementById('timer').textContent = 'Лето наступило!';
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('timer').textContent = 
+                `${days} : ${hours} : ${minutes} : ${seconds}`;
+        }
+
+        // Обновляем таймер каждую секунду
+        setInterval(updateTimer, 1000);
+        // Сразу запускаем обновление, чтобы не ждать первую секунду
+        updateTimer();
+    </script>
+</body>
+</html>
